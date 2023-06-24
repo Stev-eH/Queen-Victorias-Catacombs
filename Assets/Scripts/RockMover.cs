@@ -16,6 +16,12 @@ public class RockMover : MonoBehaviour
     private bool lockLeft;
     private bool lockRight;
 
+    [SerializeField]
+    private string collisionSide;
+
+    [SerializeField]
+    private string lockSide;
+
     private enum direction
     {No, Left, Right, Up, Down }
 
@@ -119,138 +125,102 @@ public class RockMover : MonoBehaviour
             }
         }
 
+        lockDir();
+
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Equals("Wall"))
-        {
-
-            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
-
-            if (Mathf.Abs(dir.y) > 0.7f)
-            {
-                if (dir.x < 0)
-                {
-                    lockLeft = true;
-                    Debug.Log("Left locked");
-                }
-                else if (dir.x > 0)
-                {
-                    lockRight = true;
-                    Debug.Log("Right locked");
-                }
-            }
-            else
-            {
-                if (dir.y < 0)
-                {
-                    lockDown = true;
-                    Debug.Log("Down locked");
-                }
-                else if (dir.y > 0)
-                {
-                    lockUp = true;
-                    Debug.Log("Up locked");
-                }
-            }
-        }
-    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(!collision.gameObject.tag.Equals("Wall"))
+        if(collision.gameObject.tag.Equals("Player"))
             moveTimer += Time.deltaTime;
 
-            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
-
-            if (isMoveable)
-            {
-                if (Mathf.Abs(dir.y) < 0.2f)
-                {
-                    if (dir.x > 0)
-                    {
-                        if (moveTimer > moveTime && !lockLeft)
-                        {
-                            isMoveable = false;
-                            moveDir = direction.Left;
-                            moveTimer = 0f;
-                            push.Play();
-                        }
-                    }
-                    else if (dir.x < 0)
-                    {
-                        if (moveTimer > moveTime && !lockRight)
-                        {
-                            isMoveable = false;
-                            moveDir = direction.Right;
-                            moveTimer = 0f;
-                            push.Play();
-                        }
-                    }
-                }
-                else
-                {
-                    if (dir.y > 0)
-                    {
-                        if (moveTimer > moveTime && !lockDown)
-                        {
-                            isMoveable = false;
-                            moveDir = direction.Down;
-                            moveTimer = 0f;
-                            push.Play();
-                        }
-                    }
-                    else if (dir.y < 0)
-                    {
-                        if (moveTimer > moveTime  &&!lockUp)
-                        {
-                            isMoveable = false;
-                            moveDir = direction.Up;
-                            moveTimer = 0f;
-                            push.Play();
-                        }
-                    }
-                }
-            }
-
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        moveTimer = 0f;
-
-        if (collision.gameObject.tag.Equals("Wall"))
+        if (isMoveable)
         {
 
-            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
 
-            if (Mathf.Abs(dir.y) > 0.7f)
+            if (collisionSide.Equals("Right"))
             {
-                if (dir.x < 0)
+                if (moveTimer > moveTime && !lockLeft)
                 {
-                    lockLeft = false;
-                    Debug.Log("Left released");
-                }
-                else if (dir.x > 0)
-                {
-                    lockRight = false;
-                    Debug.Log("Right released");
+                    isMoveable = false;
+                    moveDir = direction.Left;
+                    moveTimer = 0f;
+                    push.Play();
+                    collisionSide = "";
                 }
             }
-            else
+            if (collisionSide.Equals("Left"))
             {
-                if (dir.y < 0)
+                if (moveTimer > moveTime && !lockRight)
                 {
-                    lockDown = false;
-                    Debug.Log("Down released");
+                    isMoveable = false;
+                    moveDir = direction.Right;
+                    moveTimer = 0f;
+                    push.Play();
+                    collisionSide = "";
                 }
-                else if (dir.y > 0)
+            }
+            if (collisionSide.Equals("Down"))
+            {
+                if (moveTimer > moveTime && !lockUp)
                 {
-                    lockUp = false;
-                    Debug.Log("Up released");
+                    isMoveable = false;
+                    moveDir = direction.Up;
+                    moveTimer = 0f;
+                    push.Play();
+                    collisionSide = "";
+                }
+            }
+            if (collisionSide.Equals("Up"))
+            {
+                if (moveTimer > moveTime && !lockDown)
+                {
+                    isMoveable = false;
+                    moveDir = direction.Down;
+                    moveTimer = 0f;
+                    push.Play();
+                    collisionSide = "";
                 }
             }
         }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        moveTimer = 0f;
+    }
+
+
+    public void recieveCollisionPlayer(string side)
+    {
+        collisionSide= side;
+    }
+
+    public void recieveCollisionWall(string side)
+    {
+        lockSide = side;
+    }
+
+    public void lockDir()
+    {
+        if(lockSide.Equals("Left"))
+        {
+            lockLeft = !lockLeft;
+        }
+        if (lockSide.Equals("Right"))
+        {
+            lockRight = !lockRight;
+        }
+        if (lockSide.Equals("Up"))
+        {
+            lockUp= !lockUp;
+        }
+        if (lockSide.Equals("Down"))
+        {
+            lockDown= !lockDown;
+        }
+        lockSide = "";
     }
 }

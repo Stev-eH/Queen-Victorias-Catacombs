@@ -54,7 +54,7 @@ namespace Minifantasy
 
          void Update()
         {
-            if(Input.GetKey(KeyCode.W))
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             {
                 this.transform.position += Vector3.up * Time.deltaTime * speed;
                 ToggleAnimation("Walk");
@@ -64,7 +64,7 @@ namespace Minifantasy
                 ToggleDirection();
                 
             }
-            if(Input.GetKey(KeyCode.S))
+            if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             {
                 this.transform.position += Vector3.down * Time.deltaTime * speed;
                 ToggleAnimation("Walk");
@@ -73,7 +73,7 @@ namespace Minifantasy
                 y = -1;
                 ToggleDirection();
             }
-            if(Input.GetKey(KeyCode.A))
+            if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 this.transform.position += Vector3.left * Time.deltaTime * speed;
                 ToggleAnimation("Walk");
@@ -82,7 +82,7 @@ namespace Minifantasy
                 x = -1;
                 ToggleDirection();
             }
-            if(Input.GetKey(KeyCode.D))
+            if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 this.transform.position += Vector3.right * Time.deltaTime * speed;
                 ToggleAnimation("Walk");
@@ -91,7 +91,7 @@ namespace Minifantasy
                 x = 1;
                 ToggleDirection();
             }
-            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow))
                 ToggleAnimation("Idle");
 
         }

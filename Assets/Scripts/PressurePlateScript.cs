@@ -13,7 +13,7 @@ public class PressurePlateScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag.Equals("Crate"))
+        if(collision.gameObject.tag.Equals("CrateInside"))
         {
             Debug.Log("Pressure plate activated!");
             click.Play();
