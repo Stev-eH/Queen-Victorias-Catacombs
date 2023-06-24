@@ -11,6 +11,11 @@ public class RockMover : MonoBehaviour
     public float moveTime = 0.5f;
     private float moveTimer = 0f;
 
+    private bool lockUp;
+    private bool lockDown;
+    private bool lockLeft;
+    private bool lockRight;
+
     private enum direction
     {No, Left, Right, Up, Down }
 
@@ -26,6 +31,7 @@ public class RockMover : MonoBehaviour
         directionLocked = false;
         destination = transform.position;
         push = this.GetComponent<AudioSource>();
+        lockUp = lockDown = lockLeft = lockRight = false;
     }
 
     // Update is called once per frame
@@ -65,6 +71,8 @@ public class RockMover : MonoBehaviour
 
         if(transform.position != destination)
         {
+
+
             if(moveDir == direction.Up)
             {
                 transform.position += Vector3.up * Time.deltaTime * 2;
@@ -113,70 +121,136 @@ public class RockMover : MonoBehaviour
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        moveTimer += Time.deltaTime;
-
-        Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
-
-        if (isMoveable)
+        if (collision.gameObject.tag.Equals("Wall"))
         {
-            if (Mathf.Abs(dir.y) < 0.5f)
+
+            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
+
+            if (Mathf.Abs(dir.y) > 0.7f)
             {
-                if (dir.x > 0)
+                if (dir.x < 0)
                 {
-                    if (moveTimer > moveTime)
-                    {
-                        isMoveable = false;
-                        moveDir = direction.Left;
-                        moveTimer = 0f;
-                        push.Play();
-                    }
+                    lockLeft = true;
+                    Debug.Log("Left locked");
                 }
-                else if (dir.x < 0)
+                else if (dir.x > 0)
                 {
-                    if (moveTimer > moveTime)
-                    {
-                        isMoveable = false;
-                        moveDir = direction.Right;
-                        moveTimer = 0f;
-                        push.Play();
-                    }
+                    lockRight = true;
+                    Debug.Log("Right locked");
                 }
             }
             else
             {
-                if (dir.y > 0)
+                if (dir.y < 0)
                 {
-                    if (moveTimer > moveTime)
-                    {
-                        isMoveable = false;
-                        moveDir = direction.Down;
-                        moveTimer = 0f;
-                        push.Play();
-                    }
+                    lockDown = true;
+                    Debug.Log("Down locked");
                 }
-                else if (dir.y < 0)
+                else if (dir.y > 0)
                 {
-                    if (moveTimer > moveTime)
-                    {
-                        isMoveable = false;
-                        moveDir = direction.Up;
-                        moveTimer = 0f;
-                        push.Play();
-                    }
+                    lockUp = true;
+                    Debug.Log("Up locked");
                 }
             }
         }
+    }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(!collision.gameObject.tag.Equals("Wall"))
+            moveTimer += Time.deltaTime;
 
+            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
 
-
+            if (isMoveable)
+            {
+                if (Mathf.Abs(dir.y) < 0.2f)
+                {
+                    if (dir.x > 0)
+                    {
+                        if (moveTimer > moveTime && !lockLeft)
+                        {
+                            isMoveable = false;
+                            moveDir = direction.Left;
+                            moveTimer = 0f;
+                            push.Play();
+                        }
+                    }
+                    else if (dir.x < 0)
+                    {
+                        if (moveTimer > moveTime && !lockRight)
+                        {
+                            isMoveable = false;
+                            moveDir = direction.Right;
+                            moveTimer = 0f;
+                            push.Play();
+                        }
+                    }
+                }
+                else
+                {
+                    if (dir.y > 0)
+                    {
+                        if (moveTimer > moveTime && !lockDown)
+                        {
+                            isMoveable = false;
+                            moveDir = direction.Down;
+                            moveTimer = 0f;
+                            push.Play();
+                        }
+                    }
+                    else if (dir.y < 0)
+                    {
+                        if (moveTimer > moveTime  &&!lockUp)
+                        {
+                            isMoveable = false;
+                            moveDir = direction.Up;
+                            moveTimer = 0f;
+                            push.Play();
+                        }
+                    }
+                }
+            }
 
     }
 
     private void OnCollisionExit(Collision collision)
     {
         moveTimer = 0f;
+
+        if (collision.gameObject.tag.Equals("Wall"))
+        {
+
+            Vector3 dir = (collision.gameObject.transform.position - gameObject.transform.position).normalized;
+
+            if (Mathf.Abs(dir.y) > 0.7f)
+            {
+                if (dir.x < 0)
+                {
+                    lockLeft = false;
+                    Debug.Log("Left released");
+                }
+                else if (dir.x > 0)
+                {
+                    lockRight = false;
+                    Debug.Log("Right released");
+                }
+            }
+            else
+            {
+                if (dir.y < 0)
+                {
+                    lockDown = false;
+                    Debug.Log("Down released");
+                }
+                else if (dir.y > 0)
+                {
+                    lockUp = false;
+                    Debug.Log("Up released");
+                }
+            }
+        }
     }
 }
