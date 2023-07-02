@@ -8,6 +8,8 @@ public class SolvedPuzzles : MonoBehaviour
     public bool room1Solved = false;
     public bool room2Solved = false;
     public bool room3Solved = false;
+    public bool room7Solved = false;
+    public bool key1Used = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,10 @@ public class SolvedPuzzles : MonoBehaviour
         {
             room3Solved = true;
         }
+        if (roomNumber == 7)
+        {
+            room7Solved = true;
+        }
     }
 
     public bool getRoomStatus(int roomNumber)
@@ -59,7 +65,29 @@ public class SolvedPuzzles : MonoBehaviour
         {
             return room3Solved;
         }
+        if(roomNumber == 7)
+        {
+            return room7Solved;
+        }
 
         return false;
+    }
+
+    public bool getKeyStatus(int roomNumber)
+    {
+        if (roomNumber == 0)
+        {
+            return key1Used;
+        }
+
+        return false;
+    }
+
+    public void solveRoomKey(int roomNumber)
+    {
+        if (roomNumber == 0)
+        {
+            key1Used= true;
+        }
     }
 }

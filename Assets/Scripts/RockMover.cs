@@ -125,8 +125,6 @@ public class RockMover : MonoBehaviour
             }
         }
 
-        lockDir();
-
     }
 
 
@@ -203,24 +201,43 @@ public class RockMover : MonoBehaviour
         lockSide = side;
     }
 
-    public void lockDir()
+    public void lockDir(string side)
     {
-        if(lockSide.Equals("Left"))
+        if(side.Equals("Left"))
         {
-            lockLeft = !lockLeft;
+            lockLeft = true;
         }
-        if (lockSide.Equals("Right"))
+        if (side.Equals("Right"))
         {
-            lockRight = !lockRight;
+            lockRight = true;
         }
-        if (lockSide.Equals("Up"))
+        if (side.Equals("Up"))
         {
-            lockUp= !lockUp;
+            lockUp= true;
         }
-        if (lockSide.Equals("Down"))
+        if (side.Equals("Down"))
         {
-            lockDown= !lockDown;
+            lockDown= true;
         }
-        lockSide = "";
+    }
+
+    public void unlockDir(string side)
+    {
+        if (side.Equals("Left"))
+        {
+            lockLeft = false;
+        }
+        if (side.Equals("Right"))
+        {
+            lockRight = false;
+        }
+        if (side.Equals("Up"))
+        {
+            lockUp = false;
+        }
+        if (side.Equals("Down"))
+        {
+            lockDown = false;
+        }
     }
 }

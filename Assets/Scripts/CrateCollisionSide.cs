@@ -11,19 +11,21 @@ public class CrateCollisionSide : MonoBehaviour
         if(collision.gameObject.tag.Equals("Player"))
             gameObject.GetComponentInParent<RockMover>().recieveCollisionPlayer(side);
         else if(collision.gameObject.tag.Equals("Wall") || collision.gameObject.tag.Equals("Crate"))
-            gameObject.GetComponentInParent<RockMover>().recieveCollisionWall(side);
+            gameObject.GetComponentInParent<RockMover>().lockDir(side);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.tag.Equals("Player"))
             gameObject.GetComponentInParent<RockMover>().recieveCollisionPlayer(side);
+        else if (collision.gameObject.tag.Equals("Wall") || collision.gameObject.tag.Equals("Crate"))
+            gameObject.GetComponentInParent<RockMover>().lockDir(side);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.tag.Equals("Wall") || collision.gameObject.tag.Equals("Crate"))
         {
-            gameObject.GetComponentInParent<RockMover>().recieveCollisionWall(side);
+            gameObject.GetComponentInParent<RockMover>().unlockDir(side);
         }
     }
 }

@@ -42,7 +42,7 @@ public class TilePuzzle : MonoBehaviour
     {
         if(currentlySolved >= solvedTiles)
         {
-            GameObject.FindGameObjectWithTag("Logic").GetComponent<SolvedPuzzles>().solveRoom(2);
+            GameObject.FindGameObjectWithTag("Logic").GetComponent<SolvedPuzzles>().solveRoom(3);
         }
     }
 

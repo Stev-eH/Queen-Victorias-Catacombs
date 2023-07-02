@@ -8,6 +8,7 @@ public class SwitchScript : MonoBehaviour
     public Sprite down;
 
     public bool isUp = true;
+    public bool isStuckSwitch;
 
     private SpriteRenderer spR;
     private AudioSource click;
@@ -44,7 +45,14 @@ public class SwitchScript : MonoBehaviour
 
         if (beingPressed)
         {
-            isUp = !isUp;
+            if (isStuckSwitch)
+            {
+                isUp = false;
+            }
+            else
+            {
+                isUp = !isUp;
+            }
             beingPressed = false;
         }
 

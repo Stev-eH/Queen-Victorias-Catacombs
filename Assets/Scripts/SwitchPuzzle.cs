@@ -24,27 +24,27 @@ public class SwitchPuzzle : MonoBehaviour
         {
             foreach (GameObject sw in switches)
             {
-                if (sw.GetComponent<SwitchScript>().getId() == 0 && sw.GetComponent<SwitchScript>().getState() == false)
+                if (sw.GetComponent<SwitchScript>().getId() == 0 && sw.GetComponent<SwitchScript>().getState() == true)
                 {
                     solved++;
                 }
-                else if (sw.GetComponent<SwitchScript>().getId() == 1 && sw.GetComponent<SwitchScript>().getState() == true)
+                else if (sw.GetComponent<SwitchScript>().getId() == 1 && sw.GetComponent<SwitchScript>().getState() == false)
                 {
                     solved++;
                 }
-                else if (sw.GetComponent<SwitchScript>().getId() == 2 && sw.GetComponent<SwitchScript>().getState() == false)
+                else if (sw.GetComponent<SwitchScript>().getId() == 2 && sw.GetComponent<SwitchScript>().getState() == true)
                 {
                     solved++;
                 }
-                else if (sw.GetComponent<SwitchScript>().getId() == 3 && sw.GetComponent<SwitchScript>().getState() == true)
+                else if (sw.GetComponent<SwitchScript>().getId() == 3 && sw.GetComponent<SwitchScript>().getState() == false)
                 {
                     solved++;
                 }
-                else if (sw.GetComponent<SwitchScript>().getId() == 4 && sw.GetComponent<SwitchScript>().getState() == false)
+                else if (sw.GetComponent<SwitchScript>().getId() == 4 && sw.GetComponent<SwitchScript>().getState() == true)
                 {
                     solved++;
                 }
-                else if (sw.GetComponent<SwitchScript>().getId() == 5 && sw.GetComponent<SwitchScript>().getState() == true)
+                else if (sw.GetComponent<SwitchScript>().getId() == 5 && sw.GetComponent<SwitchScript>().getState() == false)
                 {
                     solved++;
                 }
@@ -69,7 +69,7 @@ public class SwitchPuzzle : MonoBehaviour
 
     public void solveRoom()
     {
-        GameObject.FindGameObjectWithTag("Logic").GetComponent<SolvedPuzzles>().solveRoom(1);
+        GameObject.FindGameObjectWithTag("Logic").GetComponent<SolvedPuzzles>().solveRoom(2);
         GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
         if (doors.Length > 0)
         {

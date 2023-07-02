@@ -12,6 +12,8 @@ TagManager:
   - Interactable
   - Wall
   - CrateInside
+  - UI
+  - Keydoor
   layers:
   - Default
   - TransparentFX
