@@ -19,7 +19,7 @@ EditorBuildSettings:
     guid: ecc6df7f5c026254383a37ecf9ca3a91
   - enabled: 1
     path: Assets/Scenes/Room4.unity
-    guid: 7ff8aed74d67397468b538e99a2d1414
+    guid: 924fc721a4a4cc04289023b8935bf9f9
   - enabled: 1
     path: Assets/Scenes/Room1_Left.unity
     guid: 96566de20d755ed4892bfd71ed3f25a9
@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Intro.unity
     guid: c906bc9287de1b54cb62ff33c32c615b
+  - enabled: 1
+    path: Assets/Scenes/Endscreen.unity
+    guid: 8367bd075abe9ba41899b2f3a3f4209d
   m_configObjects: {}
