@@ -429,6 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textspeed: 60
+  introTime: 40
 --- !u!114 &1044679413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,10 +465,10 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Archaeologists uncover a mysterious carved door under the Veste Coburg.
     They try all means to open it, heavy machinery, explosives and chemical ways
-    but to no avail. After the archaeologists gave up Reports quickly got wind of
-    this situation and so word got out to the world.\r\nA picture of this door circles
-    around the world, the internet is desperately trying to solve this mystery. An
-    anonymous poster can identify the carvings on the door as old runes and manages
+    but to no avail. After the archaeologists gave up, Reporters quickly got wind
+    of this situation and so word got out to the world.\r\nA picture of this door
+    circles around the world, the internet is desperately trying to solve this mystery.
+    An anonymous poster can identify the carvings on the door as old runes and manages
     to decipher them. \r\n\u201EBlood of QV and PA\u201C\r\nAnd then, the hype dies,
     but you know, you know that you need to go there Y/N the grand-grand-grand-\u2026-child
     of Queen Victoria and Prince Albert, this is your chance to turn your life around.
